@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Primo Pobre</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Primo Pobre — educação financeira sem enrolação, com Eduardo Feldberg.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: preto chapado, faixas amarelas cortando a página como a marca do "P"; foto em destaque no topo */
+:root{
+  --ink:#0B0B0A;          /* fundo */
+  --coal:#161614;         /* superfície */
+  --line:#2A2925;
+  --paper:#F4F2EA;        /* texto */
+  --mute:#A8A497;
+  --gold:#FFC800;         /* amarelo da marca */
+  --gold-ink:#0B0B0A;
+  --display:"Archivo","Arial Black",Impact,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--ink);color:var(--paper);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+.disp{font-family:var(--display);font-weight:900;font-stretch:125%;line-height:.92;letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--display);font-stretch:100%;font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 18px}
+.hl{color:var(--gold)}
+
+/* NAV */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:rgba(11,11,10,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo img{height:54px;width:auto}
+@media (max-width:520px){.logo img{height:46px}}
+.logo span{font-family:var(--display);font-stretch:100%;font-size:1.05rem;letter-spacing:.04em;font-weight:400}
+.logo b{font-weight:800}
+.nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0;font-weight:600;font-size:.95rem}
+.nav ul a{text-decoration:none;color:var(--mute);transition:color .2s}
+.nav ul a:hover{color:var(--paper)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-stretch:110%;font-weight:800;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:15px 24px;border-radius:2px;background:var(--gold);color:var(--gold-ink);border:2px solid var(--gold);transition:transform .2s,background .2s,color .2s;cursor:pointer}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--paper);border-color:var(--paper)}
+.btn.ghost:hover{background:var(--paper);color:var(--ink)}
+.nav .btn{padding:10px 16px;font-size:.78rem}
+@media (max-width:980px){.nav ul{display:none}}
+
+/* HERO */
+.hero{position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:.88fr 1.12fr;align-items:end;gap:20px;padding-block:56px 0}
+.hero-copy{padding-block:20px 130px;min-width:0;align-self:center;position:relative;z-index:2}
+.hero h1{font-size:clamp(2.2rem,4.9vw,4.3rem);white-space:nowrap}
+@media (max-width:860px){.hero h1{font-size:clamp(2.2rem,11vw,3.6rem)}}
+.hero p.lead{font-size:1.2rem;color:var(--mute);max-width:34ch;margin:28px 0 34px}
+.hero .ctas{display:inline-grid;grid-auto-flow:row;gap:12px}
+.hero .ctas .btn{justify-content:center;text-align:center;white-space:nowrap}
+.btn svg{width:18px;height:18px;fill:currentColor;flex:0 0 auto}
+.hero-photo{position:relative;align-self:end;min-width:0}
+.hero-photo::before{content:"";position:absolute;left:8%;right:-30%;bottom:0;top:18%;background:var(--gold);transform:skewX(-14deg);z-index:0}
+.hero-photo > img{position:relative;z-index:1;width:100%;aspect-ratio:2/3;object-fit:cover;object-position:center top;-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent);mix-blend-mode:normal}
+.badge-float{position:absolute;z-index:2;left:-6%;top:60%;background:var(--ink);border:2px solid var(--gold);padding:14px 18px;transform:rotate(-4deg)}
+.badge-float strong{display:block;font-family:var(--display);font-weight:900;font-stretch:125%;font-size:1.9rem;line-height:1;color:var(--gold)}
+.badge-float.ibest{padding:0;border:2px solid var(--gold);display:flex;flex-direction:column;width:190px}
+.badge-float.ibest .ib-logo{background:#F7F7F7;padding:10px 14px;display:flex;justify-content:center}
+.badge-float.ibest img{height:54px;width:auto}
+.badge-float.ibest span{display:block;text-align:center;color:var(--gold);font-size:.7rem;padding:9px 10px;line-height:1.2}
+.badge-float.b2{left:auto;right:-2%;top:auto;bottom:18%;transform:rotate(3deg)}
+.badge-float span{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr;padding-top:40px}
+  .hero-copy{padding-block:0 12px}
+  .hero-photo{max-width:560px;margin:0 auto;width:100%}
+  .badge-float{left:0}
+}
+
+/* FAIXA */
+.ticker{background:var(--gold);color:var(--gold-ink);overflow:hidden;transform:rotate(-1.5deg);margin:-8px -20px 0;position:relative;z-index:3}
+.ticker-track{display:flex;width:max-content;animation:roll 38s linear infinite;padding-block:16px}
+.ticker span{font-family:var(--display);font-weight:900;font-stretch:115%;font-size:1.35rem;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;padding-right:28px}
+.ticker span::after{content:"✦";margin-left:28px;font-size:.9em}
+@keyframes roll{to{transform:translateX(-50%)}}
+
+section{padding-block:110px}
+@media (max-width:700px){section{padding-block:76px}}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:56px}
+.sec-head h2{font-size:clamp(2.4rem,5.4vw,4.6rem)}
+.sec-head p{color:var(--mute);margin:0;max-width:46ch}
+@media (max-width:860px){.sec-head{grid-template-columns:1fr;gap:20px}}
+
+/* SOBRE */
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+@media (min-width:861px){
+  .about .wrap:not(.tl-wrap){grid-template-areas:"eb eb" "h2 h2" "fig txt";row-gap:0}
+  .about .about-left h2{white-space:nowrap;font-size:clamp(1.8rem,3.5vw,3.2rem);text-wrap:nowrap}
+  .about-left{display:contents}
+  .about-left .eyebrow{grid-area:eb}
+  .about-left h2{grid-area:h2}
+  .about figure{grid-area:fig}
+  .about .txt{grid-area:txt;align-self:center}
+}
+.about-left{min-width:0}
+@media (max-width:860px){.d-br{display:none}}
+.about .about-left h2{margin-bottom:40px}
+.about figure{margin:0;position:relative;min-width:0}
+.about figure img{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:50% 50%;filter:contrast(1.03)}
+.about figure::after{content:"";position:absolute;inset:18px -18px -18px 18px;border:2px solid var(--gold);z-index:-1}
+.about .txt{min-width:0}
+.about h2{font-size:clamp(1.9rem,3.6vw,3.1rem);margin-bottom:28px}
+.about p{color:#D9D6CB;max-width:58ch;margin:0 0 18px}
+.about .sign{font-family:var(--display);font-stretch:62%;font-weight:700;font-size:1.4rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-top:28px}
+@media (max-width:860px){.about .wrap{grid-template-columns:1fr;gap:56px}}
+
+/* CONQUISTAS */
+.wins{background:var(--coal);border-block:1px solid var(--line)}
+.win-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.win{padding:40px 32px 44px;border-right:1px solid var(--line);min-width:0}
+.win:last-child{border-right:0}
+.win .num{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(3.6rem,7vw,5.6rem);line-height:.9;color:var(--gold);display:flex;align-items:flex-start;gap:6px}
+.win .num small{font-size:.38em;line-height:1.2;color:var(--paper)}
+.win h3{font-family:var(--display);font-stretch:100%;font-size:1.25rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin:22px 0 8px}
+.win p{color:var(--mute);margin:0;font-size:.98rem}
+@media (max-width:860px){.win-grid{grid-template-columns:1fr}.win{border-right:0;border-bottom:1px solid var(--line);padding-inline:0}}
+
+/* LIVRO */
+.book .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:center}
+.book-art{position:relative;margin:0;max-width:440px;width:100%;justify-self:center;padding:30px 10px 0}
+.book-art::before{content:"";position:absolute;inset:0 6% 6% 6%;background:var(--gold);transform:skewX(-8deg);z-index:0}
+.book-art img{position:relative;z-index:1;width:100%;height:auto;filter:drop-shadow(-18px 24px 30px rgba(0,0,0,.55));transform:rotate(-2deg)}
+.book .txt{min-width:0}
+.book h2{font-size:clamp(2.4rem,5vw,4.2rem);margin-bottom:26px}
+.book p{color:#D9D6CB;max-width:54ch}
+.book ul{list-style:none;padding:0;margin:28px 0 36px;display:grid;gap:14px}
+.book li{display:flex;gap:14px;align-items:baseline}
+.book li::before{content:"";flex:0 0 14px;height:4px;background:var(--gold);transform:translateY(-4px)}
+@media (max-width:860px){.book .wrap{grid-template-columns:1fr;gap:64px}}
+
+
+/* REDES */
+.redes-block{margin-top:72px}
+.redes-head{margin-top:28px}
+.redes-head h3{font-size:clamp(2rem,4vw,3.2rem)}
+.redes-head p{color:#D9D6CB;margin:0;font-size:clamp(.8rem,1.45vw,1.12rem)}
+@media (min-width:861px){.redes-head p{white-space:nowrap}}
+@media (max-width:860px){.redes-head p{font-size:1.08rem}}
+.stats .social{background:var(--ink)}
+.stats .social.main{background:var(--gold)}
+@media (max-width:860px){.redes-head{grid-template-columns:1fr;gap:16px}}
+
+.social-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.social-grid .social.main{grid-column:auto}
+.social{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-height:220px;padding:26px;border:1px solid var(--line);text-decoration:none;background:var(--coal);transition:background .25s,color .25s,border-color .25s;min-width:0}
+.social svg{width:34px;height:34px;fill:currentColor}
+.social h3{font-family:var(--display);font-stretch:110%;font-weight:900;font-size:1.5rem;text-transform:uppercase;margin:0}
+.social span b{font-weight:800;color:var(--paper)}.social:hover span b,.social.main span b{color:var(--gold-ink)}
+.social span{color:var(--mute);font-size:.92rem;transition:color .25s}
+.social .arrow{position:absolute;top:24px;right:24px;font-size:1.4rem;transition:transform .25s}
+.social:hover{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.social:hover span{color:var(--gold-ink)}
+.social:hover .arrow{transform:translate(4px,-4px)}
+.social.main{grid-column:span 2;background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.social.main span{color:var(--gold-ink)}
+.social.main h3{font-size:1.5rem}
+@media (max-width:960px){.social-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.social-grid{grid-template-columns:1fr}.social.main{grid-column:auto}}
+
+/* GALERIA */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.strip img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:filter .4s}
+.strip img:hover{filter:none}
+@media (max-width:700px){.strip{grid-template-columns:repeat(2,1fr)}}
+
+/* PALESTRAS / CONTATO */
+.contact .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center}
+.contact h2{font-size:clamp(2.6rem,6vw,5.4rem)}
+.contact .txt{min-width:0}
+.contact p{color:var(--mute);max-width:46ch;margin:24px 0 32px}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.tags span{border:1px solid var(--line);padding:8px 14px;font-size:.88rem;font-weight:600}
+.contact img{width:100%;max-width:400px;margin-left:auto;aspect-ratio:2/3;object-fit:cover;border-bottom:6px solid var(--gold)}
+@media (max-width:860px){.contact .wrap{grid-template-columns:1fr}.contact img{margin:0 auto}}
+
+footer{border-top:1px solid var(--line);padding-block:40px;color:var(--mute);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center}
+footer nav{display:flex;flex-wrap:wrap;gap:22px}
+footer a{text-decoration:none}
+.foot-brand{display:flex;align-items:center;gap:18px}.foot-brand img{height:50px;width:auto;filter:brightness(0) invert(1)}
+footer a:hover{color:var(--gold)}
+footer .verse-wrap{display:block;margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.verse{margin:0;text-align:center;font-size:.78rem;font-style:italic;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.verse span{font-style:normal;color:var(--gold);font-weight:600}
+@media (max-width:700px){.verse{white-space:normal;font-size:.74rem}}
+
+/* LINHA DO TEMPO */
+.about .wrap.tl-wrap{display:block}
+.timeline{list-style:none;margin:96px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);border-top:2px solid var(--gold)}
+.timeline li{position:relative;padding:26px 18px 0 0;min-width:0}
+.timeline li::before{content:"";position:absolute;top:-8px;left:0;width:14px;height:14px;background:var(--gold);transform:rotate(45deg)}
+.timeline b{display:block;font-family:var(--display);font-weight:900;font-stretch:115%;font-size:1.6rem;color:var(--gold);line-height:1}
+.timeline span{display:block;color:var(--mute);font-size:.92rem;margin-top:10px;line-height:1.45}
+@media (max-width:960px){.timeline{grid-template-columns:repeat(3,1fr);row-gap:28px}}
+@media (max-width:560px){.timeline{grid-template-columns:1fr;border-top:0;border-left:2px solid var(--gold);margin-left:7px;row-gap:22px}.timeline li{padding:0 0 0 24px}.timeline li::before{top:4px;left:-8px}}
+
+.sub{font-family:var(--display);font-stretch:100%;font-weight:800;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 22px;color:var(--paper)}
+
+/* NÚMEROS */
+.stats{background:var(--coal);border-block:1px solid var(--line)}
+.stats .sec-head{align-items:center}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.stat{padding:36px 24px 40px 0;border-right:1px solid var(--line);min-width:0}
+.stat + .stat{padding-left:28px}
+.stat:last-child{border-right:0}
+.stat .num,.win .num{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(2.8rem,5.4vw,4.6rem);line-height:.9;color:var(--gold);display:flex;align-items:flex-start;gap:6px;font-variant-numeric:tabular-nums}
+.stat .num small{font-size:.38em;line-height:1.2;color:var(--paper)}
+.stat p{margin:14px 0 0;color:var(--mute);font-weight:600}
+@media (max-width:860px){.stat-grid{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line);padding-left:0!important}}
+.videos{margin-top:72px}
+.videos ol{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:v}
+.videos li{counter-increment:v;display:grid;grid-template-columns:2.2rem minmax(0,1fr) auto;gap:6px 16px;align-items:center}
+.videos li::before{content:counter(v);font-family:var(--display);font-weight:900;font-stretch:110%;font-size:1.2rem;color:var(--gold);grid-row:span 2}
+.videos .t{font-weight:600;min-width:0}
+.videos .views{font-family:var(--display);font-stretch:100%;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.videos .bar{grid-column:2 / 4;height:8px;background:var(--line);position:relative}
+.videos .bar i{position:absolute;inset:0 auto 0 0;background:var(--gold)}
+
+/* PRÊMIOS */
+.award-top{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px}
+.trophy{position:relative;overflow:hidden;min-width:0;padding:30px;display:flex;align-items:center;gap:28px;border-radius:28px;isolation:isolate}
+.t-gold{background:var(--gold);color:var(--gold-ink)}
+.t-dark{background:var(--ink);color:var(--paper);border:2px solid var(--gold)}
+.trophy::after{content:"";position:absolute;width:340px;height:340px;border-radius:50%;right:-120px;bottom:-160px;z-index:-1;border:2px solid currentColor;opacity:.12}
+.medal{flex:0 0 auto;width:clamp(120px,12vw,150px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;position:relative}
+.medal::before{content:"";position:absolute;inset:8px;border-radius:50%;border:2px dashed currentColor;opacity:.45}
+.medal span{font-family:var(--display);font-weight:900;font-stretch:115%;font-size:clamp(2.8rem,4.4vw,3.6rem);line-height:1;letter-spacing:-.02em}
+.t-gold .medal{background:var(--ink);color:var(--gold);box-shadow:0 0 0 6px rgba(11,11,10,.15)}
+.t-dark .medal{background:var(--gold);color:var(--ink);box-shadow:0 0 0 6px rgba(255,200,0,.18)}
+.t-body{display:grid;gap:9px;justify-items:start;min-width:0}
+.t-logo{height:40px;width:auto;margin-bottom:4px}
+.t-txt{font-family:var(--body);font-weight:700;font-size:1.35rem;letter-spacing:-.01em;color:var(--paper);margin-bottom:4px;line-height:40px}
+.t-txt span{color:var(--gold)}
+.trophy h3{font-family:var(--display);font-stretch:110%;font-weight:900;text-transform:uppercase;font-size:clamp(1.3rem,2.1vw,1.75rem);line-height:1.02;margin:0;text-wrap:balance}
+.trophy p{margin:0;font-weight:600}
+.t-dark p{color:var(--mute)}
+.t-years{list-style:none;margin:4px 0 0;padding:0;display:flex;gap:8px}
+.t-years li{font-family:var(--display);font-stretch:100%;font-weight:800;font-size:.82rem;letter-spacing:.08em;padding:6px 13px;border-radius:999px}
+.t-gold .t-years li{background:var(--ink);color:var(--gold)}
+.t-dark .t-years li{background:var(--gold);color:var(--ink)}
+.award-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.award-list li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:20px;padding:20px 0;border-bottom:1px solid var(--line);color:#D9D6CB}
+.award-list b{font-family:var(--display);font-stretch:110%;font-weight:900;color:var(--gold)}
+@media (max-width:760px){.award-top{grid-template-columns:1fr}.trophy{flex-direction:column;align-items:flex-start;gap:20px}.award-list li{grid-template-columns:1fr;gap:4px}}
+
+/* MÍDIA */
+.mosaic{margin:0;border:0;background:var(--gold);overflow:hidden}
+.mosaic img{width:100%;height:auto;display:block}
+.mosaic-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.mosaic-hint{display:none;margin:10px 0 0;color:var(--mute);font-size:.85rem;font-weight:600}
+@media (max-width:700px){.mosaic{width:860px;max-width:none}.mosaic-hint{display:block}}
+.media{background:var(--coal);border-block:1px solid var(--line)}
+.media-feature{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+.mf{position:relative;overflow:hidden;isolation:isolate;border-radius:24px;padding:18px 20px;display:flex;flex-direction:row;align-items:center;gap:16px;min-width:0}
+.mf::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;top:-90px;z-index:-1;border:2px solid currentColor;opacity:.12}
+.mf-gold{background:var(--gold);color:var(--gold-ink)}
+.mf-dark{background:var(--ink);color:var(--paper);border:2px solid var(--gold)}
+.mf-icon{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;position:relative;flex:0 0 auto}
+.mf-icon::before{content:"";position:absolute;inset:5px;border-radius:50%;border:1.5px dashed currentColor;opacity:.45}
+.mf-gold .mf-icon{background:var(--ink);color:var(--gold);box-shadow:0 0 0 5px rgba(11,11,10,.15)}
+.mf-dark .mf-icon{background:var(--gold);color:var(--ink);box-shadow:0 0 0 5px rgba(255,200,0,.18)}
+.mf-icon svg{width:28px;height:28px;fill:currentColor}
+.tedx{font-family:var(--display);font-weight:900;font-stretch:100%;font-size:.88rem;letter-spacing:-.02em;color:#fff}
+.tedx b{font-weight:900;color:#fff}
+.mf h3{font-family:var(--display);font-stretch:110%;font-weight:900;text-transform:uppercase;font-size:1.12rem;line-height:1.05;margin:0 0 5px}
+.mf p{margin:0;font-weight:500;font-size:.9rem;line-height:1.4}
+.mf > div:last-child{min-width:0}
+.mf-dark p{color:var(--mute)}
+.mf-pill{display:inline-block;margin-top:7px;padding:4px 10px!important;font-size:.7rem!important;font-family:var(--display);font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--gold);color:var(--ink)}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.chips li{border:1px solid var(--line);background:var(--ink);padding:9px 15px;font-weight:600;font-size:.92rem}
+@media (max-width:860px){.media-feature{grid-template-columns:1fr}}
+
+/* LIVRO extra */
+.book-ctas{display:inline-grid;grid-auto-flow:row;gap:12px}
+.book-ctas .btn{justify-content:center;text-align:center}
+.book-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0 18px}
+.book-stats div{border-top:3px solid var(--gold);padding-top:12px;min-width:0}
+.book-stats b{display:block;font-family:var(--display);font-weight:900;font-stretch:115%;font-size:1.8rem;color:var(--gold);line-height:1}
+.book-stats span{display:block;color:var(--mute);font-size:.88rem;margin-top:6px}
+.small{font-size:.92rem;color:var(--mute)!important;margin-bottom:30px}
+@media (max-width:480px){.book-stats{grid-template-columns:1fr}}
+
+/* POBRE SHOW */
+.show-logo{margin:0}
+.show-logo img{width:100%;max-width:340px;height:auto}
+.show .show-btn{margin-top:26px;background:var(--ink);color:#fff;border-color:var(--ink)}
+.show .show-btn:hover{background:#2a2925;border-color:#2a2925;color:#fff}
+
+.show{background:var(--paper);color:var(--ink)}
+.show .eyebrow{color:var(--ink)}
+.show .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center}
+.show h2{font-size:clamp(3.4rem,8vw,7rem)}
+.show h2 .hl{color:var(--ink);background:var(--gold);padding:0 .12em}
+.show .tag{font-family:var(--display);font-stretch:100%;font-weight:800;text-transform:uppercase;font-size:1.05rem;margin:18px 0 0}
+.show-body{min-width:0}
+.show-body p{margin:0 0 24px;max-width:56ch}
+.show-nums{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.show-nums a{background:var(--ink);color:var(--paper);padding:18px 20px;text-decoration:none;transition:transform .2s}
+.show-nums a:hover{transform:translateY(-2px)}
+.show-nums b{display:block;font-family:var(--display);font-weight:900;font-stretch:115%;font-size:1.9rem;color:var(--gold);line-height:1}
+.show-nums span{font-size:.88rem;color:var(--mute)}
+.show .small{color:#4A4740!important}
+.copyable{font-weight:700;user-select:all;overflow-wrap:anywhere}
+@media (max-width:860px){.show .wrap{grid-template-columns:1fr;gap:28px}}
+
+/* INSTITUTO */
+.inst{background:var(--ink)}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+.pillar{border:1px solid var(--line);border-top:4px solid var(--gold);padding:28px;min-width:0;background:var(--coal)}
+.pillar svg{width:40px;height:40px;fill:var(--gold);margin-bottom:18px}
+.pillar h3{font-family:var(--display);font-stretch:100%;font-weight:900;text-transform:uppercase;font-size:clamp(1rem,1.6vw,1.2rem);letter-spacing:.01em;margin:0 0 10px;overflow-wrap:anywhere}
+.pillar p{color:var(--mute);margin:0}
+.inst-ctas{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:860px){.pillars{grid-template-columns:1fr}}
+
+/* PALESTRAS */
+.talk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px}
+.talk-col{border:1px solid var(--line);padding:28px;min-width:0}
+.dash{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.dash li{display:flex;gap:14px;align-items:baseline;color:#D9D6CB}
+.dash li::before{content:"";flex:0 0 14px;height:4px;background:var(--gold);transform:translateY(-4px)}
+@media (max-width:760px){.talk-grid{grid-template-columns:1fr}}
+
+
+/* FOTOS DE PALESTRAS */
+.reel{display:grid;gap:12px;margin:0 calc(50% - 50vw) 56px;overflow:hidden}
+.reel-row{overflow:hidden}
+.reel-track{display:flex;gap:12px;width:max-content;animation:reel 60s linear infinite}
+.r-right .reel-track{animation-direction:reverse;animation-duration:70s}
+.reel:hover .reel-track{animation-play-state:paused}
+.reel figure{position:relative;margin:0;height:clamp(170px,22vw,260px);flex:0 0 auto}
+.reel img{height:100%;width:auto;max-width:none;display:block;filter:grayscale(.25);transition:filter .3s}
+.reel figure:hover img{filter:none}
+.reel figcaption{position:absolute;left:10px;bottom:10px;background:var(--gold);color:var(--gold-ink);font-family:var(--display);font-stretch:100%;font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px}
+@keyframes reel{to{transform:translateX(calc(-50% - 6px))}}
+@media (prefers-reduced-motion:reduce){.reel-row{overflow-x:auto}.reel-track{animation:none!important}}
+
+.guests{background:var(--paper)}
+.guest-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.guest-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .3s}
+.guest-grid img:hover{filter:none}
+@media (max-width:1000px){.guest-grid{grid-template-columns:repeat(6,1fr)}}
+@media (max-width:560px){.guest-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* ANUNCIE */
+.ads{background:var(--coal);border-block:1px solid var(--line)}
+.net-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.net{background:var(--ink);border-top:4px solid var(--gold);padding:34px 16px 26px;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0;transition:background .25s,color .25s}
+.net svg{width:52px;height:52px;fill:currentColor}
+.net span{font-family:var(--display);font-stretch:110%;font-weight:900;text-transform:uppercase;font-size:1rem;letter-spacing:.04em}
+.net:hover{background:var(--gold);color:var(--gold-ink)}
+@media (max-width:860px){.net-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:480px){.net-grid{grid-template-columns:repeat(2,1fr)}}
+.audience{margin-top:56px}
+.aud-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.aud-row div{border-left:3px solid var(--gold);padding-left:16px;min-width:0}
+.aud-row b{display:block;font-family:var(--display);font-weight:900;font-stretch:115%;font-size:2rem;color:var(--gold);line-height:1}
+.aud-row span{color:var(--mute);font-size:.92rem}
+@media (max-width:960px){.ad-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.ad-grid,.aud-row{grid-template-columns:1fr}}
+
+/* CONTATO extra */
+.cform{display:grid;gap:18px;max-width:560px;margin-bottom:30px}
+.cf-field{display:grid;gap:8px}
+.cf-field label{font-family:var(--display);font-stretch:100%;font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--paper)}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:560px){.cf-row{grid-template-columns:1fr}}
+.cf-field{min-width:0}
+.cf-field label small{font-weight:600;letter-spacing:.04em;text-transform:none;color:var(--mute)}
+.cf-field select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 22px) 50%,calc(100% - 16px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:44px;cursor:pointer}
+.cf-field select:invalid{color:var(--mute)}
+.cf-field option{color:var(--paper);background:var(--coal)}
+.cf-note{border-left:3px solid var(--gold);background:var(--coal);padding:14px 16px;color:#D9D6CB!important;font-size:.95rem;max-width:520px!important;margin:-8px 0 28px!important}
+.cf-note b{color:var(--gold)}
+.cf-field input,.cf-field select,.cf-field textarea{font:inherit;color:var(--paper);background:var(--coal);border:1px solid var(--line);border-radius:2px;padding:14px 16px;width:100%;resize:vertical}
+.cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.cform .btn{justify-self:start}
+#cf-msg::placeholder{font-size:.92em}
+.cform .btn:disabled{opacity:.6;cursor:wait;transform:none}
+.cf-status{margin:0!important;min-height:1.4em;font-weight:600;font-size:.95rem}
+.cf-status.ok{color:var(--gold)}
+.cf-status.err{color:#FF8A7A}
+
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:30px}
+.mail .copyable{font-family:var(--display);font-stretch:100%;font-size:clamp(1.1rem,2.4vw,1.5rem);color:var(--gold)}
+.social span + span{display:block;margin-top:2px;opacity:.75}
+</style>
+<link rel="icon" href="img/logo-amarelo.png">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#topo" aria-label="Primo Pobre — início">
+      <img src="img/logo-escuro.png" alt="Primo Pobre" width="140" height="64">
+    </a>
+    <ul>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#numeros">Números</a></li>
+      <li><a href="#premios">Prêmios</a></li>
+      <li><a href="#livro">Livro</a></li>
+      <li><a href="#instituto">Instituto</a></li><li><a href="#palestras">Palestras</a></li>
+      <li><a href="#anuncie">Publicidade</a></li>
+    </ul>
+    <a class="btn" href="#contato">Contato</a>
+  </div>
+</header>
+
+<main id="topo">
+  <section class="hero" style="padding-block:0">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Educação financeira · Eduardo Feldberg</p>
+        <h1 class="disp">O maior<br>canal de<br>finanças<br><span class="hl">para pobres</span><br>do mundo</h1>
+        <p class="lead">Educação financeira e mudança de mentalidade para quem enjoou de ser pobre.</p>
+        <div class="ctas">
+          <a class="btn" href="https://www.youtube.com/primopobre" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Assistir no YouTube</a>
+          <a class="btn ghost" href="https://www.instagram.com/eduardofeldberg" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>Siga meu Instagram</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="img/hero.jpg" alt="Eduardo Feldberg, o Primo Pobre, sorrindo e apontando para quem visita o site">
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Educação financeira</span><span>Organização financeira</span><span>Quitar dívidas</span><span>Montar reserva de emergência</span><span>Otimização de renda</span><span>Mudança de mentalidade</span><span>Empreendedorismo</span>
+      <span>Educação financeira</span><span>Organização financeira</span><span>Quitar dívidas</span><span>Montar reserva de emergência</span><span>Otimização de renda</span><span>Mudança de mentalidade</span><span>Empreendedorismo</span>
+    </div>
+  </div>
+
+  <!-- SOBRE -->
+  <section class="about" id="sobre">
+    <div class="wrap">
+      <div class="about-left">
+        <p class="eyebrow">De onde surgiu esse cabra?</p>
+        <h2 class="disp">O vendedor de geladinho que<br class="d-br"> virou <span class="hl">educador financeiro!</span></h2>
+        <figure><img src="img/sobre.jpg" alt="Eduardo Feldberg sorrindo, de boné amarelo e camiseta preta"></figure>
+      </div>
+      <div class="txt">
+        
+        <p>Sou o <strong class="hl">Eduardo Feldberg</strong>: paulistano, casado, cristão, corintiano, administrador, músico e youtuber. Desde os 9 anos já vendi geladinho, adesivo, pipa, rabiola e paraquedas de boneco. Já fui panfleteiro, office-boy, vendedor de seguros, estagiário, auxiliar administrativo… Trabalhei por 19 anos como <strong class="hl">CLT</strong>, sempre tendo várias outras fontes de renda para complementar meu salário.</p>
+        <p>Sempre gostei muito de <strong class="hl">ensinar</strong>, e desde 2013, posto vídeos no YouTube para ajudar pessoas pobres a economizarem e aprenderem novas habilidades, sem cobrar nada. Em novembro de 2020, postei um vídeo sobre amortização de financiamento. O vídeo viralizou e se tornou um dos vídeos de finanças mais vistos da história do <strong class="hl">YouTube</strong>.</p>
+        <p>Em apenas um mês, o canal pulou de 30 seguidores para 230 mil. O nome “Primo Pobre” foi sugerido e popularizado pelos próprios inscritos. Quando li os comentários e vi que estava ajudando milhares de pessoas, resolvi aceitar minha sétima renda extra e dei origem ao <strong class="hl">Canal Primo Pobre</strong>.</p>
+        <p class="sign">— Primo Pobre</p>
+      </div>
+    </div>
+    <div class="wrap tl-wrap">
+      <ol class="timeline" aria-label="Linha do tempo">
+        <li><b>2013</b><span>Comecei a produzir vídeos educacionais no YouTube</span></li>
+        <li><b>2020</b><span>Postei um vídeo sobre amortização que viralizou por todo o país</span></li>
+        <li><b>2021</b><span>Aquele canalzinho com poucos seguidores se tornou o Canal Primo Pobre, focado em educação financeira</span></li>
+        <li><b>2022</b><span>Comecei a dar palestras no Brasil e no exterior</span></li>
+        <li><b>2023</b><span>Lancei o livro <em>Deixe de Ser Pobre</em> e o programa Pobre Show</span></li>
+        <li><b>2024–25</b><span>Fui bicampeão do Prêmio iBest e venci o Influency.me, os dois maiores prêmios da internet brasileira</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NÚMEROS -->
+  <section class="stats" id="numeros">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Estatísticas do canal</p><h2 class="disp">Números de <span class="hl">gente grande</span></h2></div>
+        <p>O canal foi criado no início de 2021 e desde então, somos o canal de educação financeira com maior crescimento, tanto no YouTube quanto no Instagram.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="num">+4,3M</div><p>inscritos no YouTube</p></div>
+        <div class="stat"><div class="num">+600</div><p>aulas postadas</p></div>
+        <div class="stat"><div class="num">+300M</div><p>visualizações</p></div>
+      </div>
+      <div class="redes-block" id="redes">
+        <div class="social-grid">
+        <a class="social main" href="https://www.youtube.com/primopobre" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg>
+          <div><h3>YouTube</h3><span><b>+4,3 milhões</b> de inscritos</span><span>/primopobre</span></div><i class="arrow" aria-hidden="true">↗</i>
+        </a>
+        <a class="social" href="https://www.instagram.com/eduardofeldberg" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+          <div><h3>Instagram</h3><span><b>+3,5 milhões</b> de seguidores</span><span>@eduardofeldberg</span></div><i class="arrow" aria-hidden="true">↗</i>
+        </a>
+        <a class="social" href="https://www.tiktok.com/@eduardofeldberg" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.7a2.9 2.9 0 1 1-2-2.8V9.4a6.3 6.3 0 1 0 5.4 6.3V8.7a8.2 8.2 0 0 0 4.8 1.5V6.8z"/></svg>
+          <div><h3>TikTok</h3><span><b>+1,6 milhão</b> de seguidores</span><span>@eduardofeldberg</span></div><i class="arrow" aria-hidden="true">↗</i>
+        </a>
+        <a class="social" href="https://www.facebook.com/eduardofeldberg" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg>
+          <div><h3>Facebook</h3><span><b>+450 mil</b> de seguidores</span><span>@eduardofeldberg</span></div><i class="arrow" aria-hidden="true">↗</i>
+        </a>
+        </div>
+        <div class="redes-head">
+          <p>Aulas novas toda semana, vídeos curtos todos os dias e lives para tirar dúvidas todo mês!<br class="d-br"> Não vendo cursos, planilhas, produtos digitais, consultoria nem mentoria. No meu canal, tudo é 100% grátis.</p>
+        </div>
+      </div>
+      <div class="videos">
+        <h3 class="sub">Os vídeos mais vistos</h3>
+        <ol id="top-videos">
+          <li data-v="11329000" data-label="+11M">Como quitar um financiamento de 30 anos em 3 anos</li>
+          <li data-v="6756000" data-label="+7M">52 ideias de renda extra</li>
+          <li data-v="3416000" data-label="+3M">Comparador de renda fixa</li>
+          <li data-v="3345000" data-label="+3M">A melhor renda fixa do Brasil</li>
+          <li data-v="2895000" data-label="+3M">Aula sobre investimentos para iniciantes</li>
+          <li data-v="2846000" data-label="+2M">Como sair da pobreza em um ano</li>
+          <li data-v="2550000" data-label="+2M">Dicas financeiras que mudarão a sua mente</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRÊMIOS -->
+  <section class="awards" id="premios">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Números, menções e premiações</p><h2 class="disp">Esse cara tá ganhando <span class="hl">todos os prêmios</span></h2></div>
+        <p>O terceiro maior canal de finanças do Brasil e o maior canal de finanças para pobres do mundo, reconhecido pelos dois maiores prêmios da internet brasileira.</p>
+      </div>
+      <div class="award-top">
+        <article class="trophy t-gold">
+          <div class="medal" aria-hidden="true"><span>2×</span></div>
+          <div class="t-body">
+            <img class="t-logo" src="img/ibest-transp.png" alt="iBest" width="693" height="234" loading="lazy">
+            <h3>Bicampeão do Prêmio iBest</h3>
+            <p>Melhor influenciador de investimentos do Brasil</p>
+            <ul class="t-years"><li>2024</li><li>2025</li></ul>
+          </div>
+        </article>
+        <article class="trophy t-dark">
+          <div class="medal" aria-hidden="true"><span>1º</span></div>
+          <div class="t-body">
+            <div class="t-txt">Influency<span>.me</span></div>
+            <h3>Prêmio Influency.me</h3>
+            <p>Melhor influenciador de finanças do Brasil</p>
+            <ul class="t-years"><li>2025</li></ul>
+          </div>
+        </article>
+      </div>
+      <ul class="award-list">
+        <li><b>2026</b><span>Prêmio Pensadores do Futuro: melhor influenciador de finanças do Brasil</span></li>
+        <li><b>2025</b><span>Um dos cinco finalistas do Prêmio Estrelas da Educação</span></li>
+        <li><b>2024–25</b><span>4º perfil de finanças mais relevante do Brasil (Finfluence / ANBIMA)</span></li>
+        <li><b>2023–24</b><span>Canal de finanças com maior crescimento no YouTube, Instagram e Facebook (Finfluence / ANBIMA)</span></li>
+        <li><b>Livros</b><span>Autor do prefácio de vários livros, entre eles <em>Quem Pensa Enriquece</em>, um dos livros mais vendidos do mundo</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MÍDIA -->
+  <section class="media" id="midia">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Onde já estive</p><h2 class="disp">Da TV ao <span class="hl">podcast</span></h2></div>
+        <p>Participei dos programas mais relevantes de TV, rádio e internet do Brasil, e já fui citado em matérias do G1, UOL, R7, Folha de S.Paulo e CBN.</p>
+      </div>
+      <div class="media-feature">
+        <article class="mf mf-gold"><div class="mf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18.5c2.2 0 2.2-1.5 4.5-1.5s2.3 1.5 4.5 1.5 2.3-1.5 4.5-1.5 2.3 1.5 4.5 1.5v2c-2.2 0-2.2-1.5-4.5-1.5S14.2 20.5 12 20.5 9.7 19 7.5 19 5.2 20.5 3 20.5v-2zM6 15.6C8 9 12.5 4.2 19 3.5c-2 3.2-2.6 7.4-1.2 11.6-1.3-.6-2.4-.6-3.6 0-1.1.6-1.6 1-2.2 1s-1.1-.4-2.2-1c-1.3-.7-2.6-.6-3.8.5z"/></svg></div><div><h3>Shark Tank Creators</h3><p>Fui um dos “sharks” na primeira versão do programa no mundo.</p></div></article>
+        <article class="mf mf-dark"><div class="mf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3.5 3.5 0 0 0 3.5-3.5v-5a3.5 3.5 0 1 0-7 0v5A3.5 3.5 0 0 0 12 14zm6-3.5h-1.8a4.2 4.2 0 0 1-8.4 0H6a6 6 0 0 0 5 5.9V19H8v2h8v-2h-3v-2.6a6 6 0 0 0 5-5.9z"/></svg></div><div><h3>Rádio Mix FM</h3><p>Desde 2025, quadro diário “Pergunte ao Primo Pobre”.</p><span class="mf-pill">Todo dia</span></div></article>
+        <article class="mf mf-gold"><div class="mf-icon"><span class="tedx">TED<b>x</b></span></div><div><h3>TEDx</h3><p>Palestra no palco mais famoso de ideias do mundo.</p></div></article>
+      </div>
+      <div class="mosaic-wrap"><figure class="mosaic"><img src="img/midia-mosaico.jpg" alt="Mosaico de fotos de Eduardo Feldberg em programas como The Noite, Pânico Jovem Pan, Flow, Shark Tank Creators, Domingo Espetacular, TV Band, Chega Mais SBT, Rádio Mix FM, TEDx e outros" width="1935" height="1063" loading="lazy"></figure></div>
+      <p class="mosaic-hint">Arraste para o lado para ver todos ›</p>
+    </div>
+  </section>
+
+  <!-- LIVRO -->
+  <section class="book" id="livro">
+    <div class="wrap">
+      <figure class="book-art">
+        <img src="img/livro.png" alt="Capa do livro Deixe de Ser Pobre!, de Eduardo Feldberg" width="593" height="900" loading="lazy">
+      </figure>
+      <div class="txt">
+        <p class="eyebrow">O livro do Primo Pobre</p>
+        <h2 class="disp">Deixe de ser <span class="hl">pobre!</span></h2>
+        <p>Lançado em julho de 2023, é um livro de educação financeira totalmente voltado para pobres, cheio de dicas para melhorar a qualidade de vida das pessoas. Nele eu ensino mudança de mentalidade, princípios de educação financeira, investimentos e economia do dia a dia para tirar os pobres da pindaíba.</p>
+        <div class="book-stats">
+          <div><b>+220 mil</b><span>exemplares vendidos</span></div>
+          <div><b>5×</b><span>no top 3 da Amazon</span></div>
+          <div><b>Jabuti</b><span>10 finalistas em 2024</span></div>
+        </div>
+        <p class="small">Também ficou em 7º lugar na categoria Negócios da PublishNews, em 6º na lista da Bookinfo e, em 2025, foi lançado na Bienal do Livro de Lisboa, em Portugal.</p>
+        <div class="book-ctas">
+          <a class="btn" href="https://amzn.to/489p7ZA" target="_blank" rel="noopener">Comprar o livro oficial</a>
+          <a class="btn ghost" href="https://amzn.to/4icLiTj" target="_blank" rel="noopener">Comprar a versão econômica</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POBRE SHOW -->
+  <section class="show" id="pobreshow">
+    <div class="wrap">
+      <div class="show-title">
+        <p class="eyebrow">Toda semana no YouTube</p>
+        <h2 class="show-logo"><img src="img/pobreshow-logo.png" alt="Pobre Show" width="900" height="304"></h2>
+        <p class="tag">O programa de pobre mais rico do Brasil</p>
+        <a class="btn show-btn" href="https://www.youtube.com/@pobreshow" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Assistir no YouTube</a>
+      </div>
+      <div class="show-body">
+        <p>Desde março de 2023, o Pobre Show mistura a conversa descontraída de podcast com elementos de programa de TV. Cada episódio tem um convidado especial com dicas para mudar de vida, além de quadros de humor, investimentos e muitos prêmios para a audiência.</p>
+        <div class="show-nums">
+          <a href="https://www.youtube.com/@pobreshow" target="_blank" rel="noopener"><b>+500 mil</b><span>inscritos no YouTube</span></a>
+          <a href="https://www.instagram.com/pobreshow" target="_blank" rel="noopener"><b>+700 mil</b><span>seguidores no Instagram</span></a>
+        </div>
+        <p class="small">Quer anunciar ou patrocinar? Escreva para <span class="copyable">contato@pobreshow.com.br</span></p>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <div class="guests" aria-label="Convidados do Pobre Show">
+    <div class="guest-grid">
+      <img src="img/convidados/c01.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c02.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c03.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c04.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c05.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c06.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c07.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c08.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c09.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c10.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c11.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c12.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c13.jpg" alt="Primo Pobre com Luciano Hang no Pobre Show" style="object-position:50% 28%" loading="lazy">
+      <img src="img/convidados/c14.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c15.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c16.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c17.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c18.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c19.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c20.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c21.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c22.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c23.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c24.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c25.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c26.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c27.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c28.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c29.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+      <img src="img/convidados/c30.jpg" alt="Primo Pobre com convidado no Pobre Show" loading="lazy">
+    </div>
+  </div>
+
+  <!-- INSTITUTO -->
+  <section class="inst" id="instituto">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Instituto Primo Pobre</p><h2 class="disp">Retribuir é parte <span class="hl">do caminho</span></h2></div>
+        <p>O Instituto Primo Pobre tem um objetivo simples e grande: levar educação, água e empreendedorismo para as regiões mais pobres do Brasil.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6.8 9.6V16c0 1.9 3 4 6.8 4s6.8-2.1 6.8-4v-3.4L12 16.3l-6.8-3.7z"/></svg>
+          <h3>Educação</h3>
+          <p>Conhecimento que abre portas e muda a forma de lidar com o dinheiro.</p>
+        </div>
+        <div class="pillar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5S5 10.4 5 15a7 7 0 0 0 14 0c0-4.6-7-12.5-7-12.5zm0 17.5a5 5 0 0 1-5-5h2a3 3 0 0 0 3 3v2z"/></svg>
+          <h3>Água</h3>
+          <p>Acesso a água, o básico que ainda falta para muita gente.</p>
+        </div>
+        <div class="pillar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11h-6v-6H9v6H3zm6-9h6V9.6l-3-2-3 2V12z"/></svg>
+          <h3>Empreendedorismo</h3>
+          <p>Ferramentas para gerar renda e criar oportunidades na própria comunidade.</p>
+        </div>
+      </div>
+      <div class="inst-ctas">
+        <a class="btn" href="https://www.institutoprimopobre.com.br" target="_blank" rel="noopener">Saiba mais</a>
+        <a class="btn ghost" href="https://www.instagram.com/institutoprimopobre/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>Instagram do Instituto</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALESTRAS -->
+  <section class="talks" id="palestras">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Palestras e eventos</p><h2 class="disp">Leve o Primo para <span class="hl">o seu evento</span></h2></div>
+        <p>Desde 2022, ministro palestras presenciais, virtuais e painéis em eventos corporativos e congressos em geral, no Brasil e exterior. As palestras podem durar até 2h e abordam temas como educação e organização financeira, mudança de mentalidade, dívidas, reserva de emergência, investimentos e otimização de renda e empreendedorismo.</p>
+      </div>
+      <div class="reel" aria-label="Fotos de palestras e eventos">
+        <div class="reel-row r-left"><div class="reel-track"><figure><img src="img/palestras/p01.jpg" alt="Palestra no palco do TEDx Jacareí" loading="lazy"><figcaption>TEDx Jacareí</figcaption></figure><figure><img src="img/palestras/p02.jpg" alt="Primo Pobre ajoelhado no palco do Sebrae Minas com a plateia acendendo as lanternas dos celulares" loading="lazy"><figcaption>Sebrae Minas</figcaption></figure><figure><img src="img/palestras/p06.jpg" alt="Palestra no Sebrae Rio Summit" loading="lazy"><figcaption>Sebrae Rio Summit</figcaption></figure><figure><img src="img/palestras/p09.jpg" alt="Palestra de educação financeira para o Exército Brasileiro" loading="lazy"><figcaption>Exército Brasileiro</figcaption></figure><figure><img src="img/palestras/p12.jpg" alt="Palestra no Congress Brazil Mobile" loading="lazy"><figcaption>Congress Brazil Mobile</figcaption></figure><figure><img src="img/palestras/p14.jpg" alt="Primo Pobre falando no palco do Inter Invest Summit" loading="lazy"><figcaption>Inter Invest Summit</figcaption></figure><figure><img src="img/palestras/p08.jpg" alt="Palestra para grande plateia na Igreja Lírio" loading="lazy"><figcaption>Igreja Lírio</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p01.jpg" alt="" loading="lazy"><figcaption>TEDx Jacareí</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p02.jpg" alt="" loading="lazy"><figcaption>Sebrae Minas</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p06.jpg" alt="" loading="lazy"><figcaption>Sebrae Rio Summit</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p09.jpg" alt="" loading="lazy"><figcaption>Exército Brasileiro</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p12.jpg" alt="" loading="lazy"><figcaption>Congress Brazil Mobile</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p14.jpg" alt="" loading="lazy"><figcaption>Inter Invest Summit</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p08.jpg" alt="" loading="lazy"><figcaption>Igreja Lírio</figcaption></figure></div></div>
+        <div class="reel-row r-right"><div class="reel-track"><figure><img src="img/palestras/p13.jpg" alt="Palestra na arena lotada do Overmission 2026" loading="lazy"><figcaption>Overmission 2026</figcaption></figure><figure><img src="img/palestras/p11.jpg" alt="Telão do Inter Invest Summit com Eduardo Feldberg" loading="lazy"><figcaption>Inter Invest Summit</figcaption></figure><figure><img src="img/palestras/p04.jpg" alt="Primo Pobre falando ao microfone no lançamento na B3" loading="lazy"><figcaption>Lançamento na B3</figcaption></figure><figure><img src="img/palestras/p03.jpg" alt="Auditório lotado de estudantes durante palestra no Sebrae Teófilo Otoni" loading="lazy"><figcaption>Sebrae Teófilo Otoni</figcaption></figure><figure><img src="img/palestras/p07.jpg" alt="Palestra no evento da Haskell" loading="lazy"><figcaption>Haskell</figcaption></figure><figure><img src="img/palestras/p10.jpg" alt="Bate-papo no Expert XP" loading="lazy"><figcaption>Expert XP</figcaption></figure><figure><img src="img/palestras/p05.jpg" alt="Palestra para a Força Aérea Brasileira" loading="lazy"><figcaption>Força Aérea Brasileira</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p13.jpg" alt="" loading="lazy"><figcaption>Overmission 2026</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p11.jpg" alt="" loading="lazy"><figcaption>Inter Invest Summit</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p04.jpg" alt="" loading="lazy"><figcaption>Lançamento na B3</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p03.jpg" alt="" loading="lazy"><figcaption>Sebrae Teófilo Otoni</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p07.jpg" alt="" loading="lazy"><figcaption>Haskell</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p10.jpg" alt="" loading="lazy"><figcaption>Expert XP</figcaption></figure><figure aria-hidden="true"><img src="img/palestras/p05.jpg" alt="" loading="lazy"><figcaption>Força Aérea Brasileira</figcaption></figure></div></div>
+      </div>
+      <div class="talk-grid">
+        <div class="talk-col">
+          <h3 class="sub">Onde eu falo</h3>
+          <ul class="dash">
+            <li>Congressos e eventos comerciais</li>
+            <li>Bienais e eventos literários</li>
+            <li>Eventos para funcionários de empresas</li>
+            <li>Igrejas e eventos religiosos</li>
+            <li>Podcasts e lives, remotos ou presenciais</li>
+          </ul>
+        </div>
+        <div class="talk-col">
+          <h3 class="sub">Para quem</h3>
+          <ul class="dash">
+            <li>Educação financeira para “pessoas comuns”</li>
+            <li>Educação financeira para empresários</li>
+            <li>Educação financeira para cristãos (base bíblica)</li>
+            <li>Educação financeira para casais</li>
+            <li>Investimentos para iniciantes</li>
+          </ul>
+        </div>
+      </div>
+      <div class="done">
+        <h3 class="sub">Algumas palestras realizadas</h3>
+        <ul class="chips">
+          <li>TEDx</li><li>Força Aérea Brasileira</li><li>Exército Brasileiro</li><li>Feira de Lisboa</li><li>Congresso em Angola</li><li>Bienal de São Paulo</li><li>Sebrae Summit</li><li>Banco Inter</li><li>Expert XP</li><li>Comitê Paralímpico</li><li>Eduzz</li><li>Arena MRV</li><li>Overmission</li><li>ANBIMA</li><li>Banco do Nordeste</li><li>Haskell</li><li>AASP</li><li>Sicoob</li><li>Polícia Militar</li><li>Unesp</li><li>Unicamp</li><li>Aurora</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANUNCIE -->
+  <section class="ads" id="anuncie">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Para marcas</p><h2 class="disp">Anuncie com o <span class="hl">Primo</span></h2></div>
+        <p>O valor de cada divulgação varia conforme o dia da postagem e a afinidade do produto com o conteúdo do canal e o interesse dos inscritos. Toda divulgação só é aprovada após verificar a confiabilidade e a reputação da empresa. <strong class="hl">Importante:</strong> não faço divulgações de produtos ou serviços voltados para os mais ricos. Meu canal é para pobres e não pretendo mudar nunca esse propósito.</p>
+      </div>
+      <ul class="net-grid" aria-label="Redes para divulgação"><li class="net"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg><span>YouTube</span></li><li class="net"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg><span>Instagram</span></li><li class="net"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.2V2h-3.4v13.7a2.9 2.9 0 1 1-2-2.8V9.4a6.3 6.3 0 1 0 5.4 6.3V8.7a8.2 8.2 0 0 0 4.8 1.5V6.8z"/></svg><span>TikTok</span></li><li class="net"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg><span>Facebook</span></li><li class="net"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg><span>LinkedIn</span></li></ul>
+      <div class="audience">
+        <h3 class="sub">Quem assiste</h3>
+        <div class="aud-row">
+          <div><b>63%</b><span>da audiência do YouTube tem entre 25 e 44 anos</span></div>
+          <div><b>+30M</b><span>de visualizações por mês no Instagram</span></div>
+          <div><b>+1M</b><span>de interações por mês no Instagram</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="contact" id="contato">
+    <div class="wrap">
+      <div class="txt">
+        <p class="eyebrow">Contato</p>
+        <h2 class="disp">Bora fazer <span class="hl">negócio?</span></h2>
+        <p>Palestras, publicidade ou imprensa: manda sua mensagem que a equipe responde.</p>
+        <p class="cf-note"><b>Atenção:</b> este formulário é só para contatos comerciais e de imprensa. Ele não pode ser usado para enviar dúvidas e perguntas sobre finanças.</p>
+        <form class="cform" id="cform" novalidate>
+          <div class="cf-field">
+            <label for="cf-nome">Nome</label>
+            <input id="cf-nome" name="nome" type="text" autocomplete="name" required>
+          </div>
+          <div class="cf-row">
+            <div class="cf-field">
+              <label for="cf-email">E-mail</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+            </div>
+            <div class="cf-field">
+              <label for="cf-whats">WhatsApp <small>(opcional)</small></label>
+              <input id="cf-whats" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 90000-0000">
+            </div>
+          </div>
+          <div class="cf-field">
+            <label for="cf-assunto">Assunto</label>
+            <select id="cf-assunto" name="assunto" required>
+              <option value="" selected disabled>Selecione o assunto</option>
+              <option>Contratação de palestra</option>
+              <option>Contratação de publicidade</option>
+              <option>Assessoria de imprensa</option>
+            </select>
+          </div>
+          <div class="cf-field">
+            <label for="cf-msg">Mensagem</label>
+            <textarea id="cf-msg" name="mensagem" rows="5" required placeholder="Escreva sua mensagem com o máximo de detalhes, para otimizarmos nosso tempo. =)"></textarea>
+          </div>
+          <button class="btn" type="submit" id="cf-send">Enviar</button>
+          <p class="cf-status" id="cf-status" role="status" aria-live="polite"></p>
+        </form>
+        
+      </div>
+      <img src="img/contato.jpg" alt="Primo Pobre fazendo sinal de “me liga” e apontando para o logo na camiseta" loading="lazy">
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-brand"><img src="img/logo-amarelo.png" alt="Primo Pobre" width="140" height="68" loading="lazy"><span>© 2026 Eduardo Feldberg</span></div>
+    <nav>
+      <a href="https://www.youtube.com/primopobre" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.instagram.com/eduardofeldberg" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@eduardofeldberg" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.facebook.com/eduardofeldberg" target="_blank" rel="noopener">Facebook</a>
+      <a href="#topo">Voltar ao topo ↑</a>
+    </nav>
+  </div>
+  <div class="wrap verse-wrap"><p class="verse">“Consagre ao SENHOR tudo que você faz, e todos os seus planos serão bem-sucedidos.” <span>(Provérbios 16:3)</span></p></div>
+</footer>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+
+
+  // ajusta títulos de linha fixa para nunca passarem da largura disponível
+  const fitEls=['.hero h1','.about .about-left h2','.redes-head p'];
+  function fitAll(){
+    fitEls.forEach(sel=>{const el=document.querySelector(sel); if(!el) return;
+      el.style.fontSize='';
+      if(getComputedStyle(el).whiteSpace!=='nowrap') return;
+      const cw=el.clientWidth, sw=el.scrollWidth;
+      if(sw>cw+1){const fs=parseFloat(getComputedStyle(el).fontSize); el.style.fontSize=(fs*cw/sw*0.985)+'px';}
+    });
+  }
+  fitAll();
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitAll);
+  window.addEventListener('load',fitAll);
+  let fitT; window.addEventListener('resize',()=>{clearTimeout(fitT);fitT=setTimeout(fitAll,80);});
+  // vídeos mais vistos: barras na mesma escala
+  const vids=[...document.querySelectorAll('#top-videos li')];
+  const max=Math.max(...vids.map(li=>+li.dataset.v));
+  vids.forEach(li=>{const v=+li.dataset.v,t=li.innerHTML;
+    li.innerHTML='<span class="t">'+t+'</span><span class="views">'+(li.dataset.label||(v/1e6).toLocaleString('pt-BR',{maximumFractionDigits:1})+'M')+' views</span><span class="bar"><i style="width:'+(v/max*100).toFixed(1)+'%"></i></span>';});
+  // formulário de contato
+  const form=$('cform'), st=$('cf-status'), send=$('cf-send');
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const nome=$('cf-nome').value.trim(), email=$('cf-email').value.trim(), whats=$('cf-whats').value.trim(), assunto=$('cf-assunto').value, msg=$('cf-msg').value.trim();
+    st.className='cf-status';
+    if(!nome||!email||!assunto||!msg){st.textContent='Preencha nome, e-mail, assunto e mensagem para enviar.';st.classList.add('err');return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){st.textContent='Confira o e-mail: parece que falta alguma parte.';st.classList.add('err');$('cf-email').focus();return;}
+    send.disabled=true; send.textContent='Enviando…'; st.textContent='';
+    try{
+      const r=await fetch('https://formsubmit.co/ajax/eduardofeldberg@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({Nome:nome,'E-mail':email,WhatsApp:whats||'Não informado',Assunto:assunto,Mensagem:msg,_replyto:email,_subject:'Site Primo Pobre: '+assunto,_template:'table',_captcha:'false'})});
+      const d=await r.json().catch(()=>({}));
+      if(!r.ok||String(d.success)==='false') throw new Error();
+      form.reset(); st.textContent='Mensagem enviada! A equipe vai responder em breve.'; st.classList.add('ok');
+    }catch(err){
+      st.textContent='Não foi possível enviar agora. Tente de novo em alguns minutos.'; st.classList.add('err');
+    }finally{send.disabled=false; send.textContent='Enviar';}
+  });
+})();
+</script>
+</body>
+</html>
